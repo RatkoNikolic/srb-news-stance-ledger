@@ -1,0 +1,88 @@
+{
+ "propositions": [
+  {
+   "id": "P1",
+   "topic": "T1",
+   "text": "All documentation on the reconstruction of the Novi Sad railway station has been published.",
+   "type": "polar",
+   "query_sr": "objavljena sva dokumentacija o rekonstrukciji železničke stanice Novi Sad kompletna dokumentacija"
+  },
+  {
+   "id": "P2",
+   "topic": "T2",
+   "text": "The students' demands have been fulfilled.",
+   "type": "polar",
+   "notes": "affirms = all fulfilled; partial = some fulfilled or being fulfilled; denies = not fulfilled",
+   "query_sr": "ispunjeni zahtevi studenata ispunjen zahtev nisu ispunjeni"
+  },
+  {
+   "id": "P3",
+   "topic": "T2",
+   "text": "The students have put forward demands beyond the original four.",
+   "type": "polar",
+   "query_sr": "novi zahtev studenata peti zahtev dodatni zahtevi",
+   "notes": "The original four demands (December 2024): publish the complete reconstruction documentation; drop charges against students and citizens arrested at protests; prosecute those who attacked students and professors; raise the higher-education budget by 20%. Only demands beyond these four count."
+  },
+  {
+   "id": "P4",
+   "topic": "T2",
+   "text": "The students demand early (snap) parliamentary elections.",
+   "type": "polar",
+   "query_sr": "studenti traže raspisivanje vanrednih parlamentarnih izbora"
+  },
+  {
+   "id": "P5",
+   "topic": "T3",
+   "text": "A sound device (a 'sound cannon' or other acoustic weapon) was used against the protesters in Belgrade on 15 March 2025.",
+   "type": "polar",
+   "query_sr": "korišćen zvučni top na protestu 15. marta zvučno oružje"
+  },
+  {
+   "id": "P6",
+   "topic": "T3",
+   "text": "Serbian state bodies possess a sound device of that kind (for example an LRAD).",
+   "type": "polar",
+   "query_sr": "MUP poseduje zvučni top LRAD nabavka uređaja"
+  },
+  {
+   "id": "P7",
+   "topic": "T3",
+   "text": "What caused the sudden sound and crowd movement during the silent tribute in Belgrade on 15 March 2025.",
+   "type": "category",
+   "values": [
+    "sound_device",
+    "other_device",
+    "crowd_reaction",
+    "staged_or_provoked",
+    "unknown_or_under_investigation"
+   ],
+   "query_sr": "uzrok zvuka 15. marta panika zvučni top antidron"
+  },
+  {
+   "id": "P8",
+   "topic": "T4",
+   "text": "The number of people at the protest in Belgrade on 15 March 2025.",
+   "type": "number",
+   "query_sr": "broj ljudi na protestu 15. marta procena hiljada Arhiv javnih skupova MUP",
+   "notes": "An actor's estimate of how many people attended, not a prediction made before the event."
+  },
+  {
+   "id": "P9",
+   "topic": "T4",
+   "text": "The number of people at the rally 'Ne damo Srbiju' in Belgrade on 12 April 2025.",
+   "type": "number",
+   "query_sr": "broj ljudi na skupu Ne damo Srbiju 12. aprila procena hiljada",
+   "notes": "An actor's estimate of how many people attended, not a prediction made before the event."
+  }
+ ],
+ "stances": {
+  "polar": [
+   "affirms",
+   "denies",
+   "partial",
+   "hedged"
+  ],
+  "category": "one of the proposition's values",
+  "number": "a number or range of people (low, high)"
+ }
+}

@@ -1,0 +1,68 @@
+{
+ "summary_briefed": {
+  "recall": 0.3806571605703658,
+  "stale_per_100_positions": 2.084884586746091,
+  "ahead_of_gold_per_100_positions": 4.542069992553984,
+  "change_detection": 0.1317365269461078,
+  "unmatched_share": 0.3655994043186895,
+  "changes_reported": 95,
+  "false_changes": 47,
+  "gold_changes": 167,
+  "n_questions": 149
+ },
+ "closed_book": {
+  "recall": 0.018598884066955982,
+  "stale_per_100_positions": 0.0,
+  "ahead_of_gold_per_100_positions": 0.0,
+  "change_detection": 0.0,
+  "unmatched_share": 0.3125,
+  "changes_reported": 0,
+  "false_changes": 0,
+  "gold_changes": 167,
+  "n_questions": 149
+ },
+ "ledger": {
+  "recall": 0.40917544947303164,
+  "stale_per_100_positions": 2.5821596244131455,
+  "ahead_of_gold_per_100_positions": 7.922535211267606,
+  "change_detection": 0.2275449101796407,
+  "unmatched_share": 0.3873239436619718,
+  "changes_reported": 604,
+  "false_changes": 284,
+  "gold_changes": 167,
+  "n_questions": 149
+ },
+ "summary_unbriefed": {
+  "recall": 0.24736515809051457,
+  "stale_per_100_positions": 0.7650273224043715,
+  "ahead_of_gold_per_100_positions": 4.371584699453552,
+  "change_detection": 0.03592814371257485,
+  "unmatched_share": 0.38579234972677595,
+  "changes_reported": 37,
+  "false_changes": 23,
+  "gold_changes": 167,
+  "n_questions": 149
+ },
+ "rag": {
+  "recall": 0.15623062616243025,
+  "stale_per_100_positions": 3.7773359840954273,
+  "ahead_of_gold_per_100_positions": 2.982107355864811,
+  "change_detection": 0.0658682634730539,
+  "unmatched_share": 0.3081510934393638,
+  "changes_reported": 15,
+  "false_changes": 3,
+  "gold_changes": 167,
+  "n_questions": 149
+ },
+ "ledger_corroborated": {
+  "recall": 0.41661500309981403,
+  "stale_per_100_positions": 0.9362200117027502,
+  "ahead_of_gold_per_100_positions": 7.314218841427736,
+  "change_detection": 0.40718562874251496,
+  "unmatched_share": 0.38970157987126974,
+  "changes_reported": 387,
+  "false_changes": 203,
+  "gold_changes": 167,
+  "n_questions": 149
+ }
+}

@@ -1,0 +1,164 @@
+{
+ "notes": "Actors are institutions, office-holders by role, parties and organised groups. Everyone not on this map is 'other' and is never named. Roles whose holder changed in the window are keyed on the holder's term. Dynamic ids are allowed only with the listed prefixes, filled with an institution or organisation name, never a person.",
+ "fixed": [
+  {
+   "id": "president",
+   "group": "state",
+   "name": "President of Serbia",
+   "holder": "Aleksandar Vučić"
+  },
+  {
+   "id": "government_vucevic",
+   "group": "state",
+   "name": "Government of Serbia (PM Miloš Vučević; caretaker from 19 Mar 2025)",
+   "until": "2025-04-16"
+  },
+  {
+   "id": "government_macut",
+   "group": "state",
+   "name": "Government of Serbia (PM Đuro Macut)",
+   "from": "2025-04-16"
+  },
+  {
+   "id": "pm_vucevic",
+   "group": "state",
+   "name": "Prime Minister Miloš Vučević (resigned 28 Jan 2025; caretaker until 16 Apr)",
+   "until": "2025-04-16"
+  },
+  {
+   "id": "pm_macut",
+   "group": "state",
+   "name": "Prime Minister Đuro Macut",
+   "from": "2025-04-16"
+  },
+  {
+   "id": "speaker",
+   "group": "state",
+   "name": "Speaker of the National Assembly",
+   "holder": "Ana Brnabić"
+  },
+  {
+   "id": "ministry_interior",
+   "group": "state",
+   "name": "Ministry of the Interior (minister Ivica Dačić)"
+  },
+  {
+   "id": "police",
+   "group": "state",
+   "name": "Police (police directorate)"
+  },
+  {
+   "id": "ministry_defence",
+   "group": "state",
+   "name": "Ministry of Defence and the Army"
+  },
+  {
+   "id": "ministry_education",
+   "group": "state",
+   "name": "Ministry of Education (by holder's term)"
+  },
+  {
+   "id": "ministry_finance",
+   "group": "state",
+   "name": "Ministry of Finance (minister Siniša Mali)"
+  },
+  {
+   "id": "ministry_construction",
+   "group": "state",
+   "name": "Ministry of Construction, Transport and Infrastructure (by holder's term)"
+  },
+  {
+   "id": "bia",
+   "group": "state",
+   "name": "Security Information Agency (BIA)"
+  },
+  {
+   "id": "prosecution_ns_higher",
+   "group": "state",
+   "name": "Higher Public Prosecutor's Office in Novi Sad"
+  },
+  {
+   "id": "prosecution_organised_crime",
+   "group": "state",
+   "name": "Prosecutor's Office for Organised Crime (TOK)"
+  },
+  {
+   "id": "prosecution_republic",
+   "group": "state",
+   "name": "Republic Public Prosecutor's Office"
+  },
+  {
+   "id": "prosecution_bg_first_basic",
+   "group": "state",
+   "name": "First Basic Public Prosecutor's Office in Belgrade"
+  },
+  {
+   "id": "party_sns",
+   "group": "governing_parties",
+   "name": "Serbian Progressive Party (SNS)"
+  },
+  {
+   "id": "party_sps",
+   "group": "governing_parties",
+   "name": "Socialist Party of Serbia (SPS)"
+  },
+  {
+   "id": "students_blockade",
+   "group": "students",
+   "name": "Students in blockade (unnamed, collective)"
+  },
+  {
+   "id": "party_ssp",
+   "group": "opposition",
+   "name": "Party of Freedom and Justice (SSP)"
+  },
+  {
+   "id": "party_zlf",
+   "group": "opposition",
+   "name": "Green-Left Front (ZLF)"
+  },
+  {
+   "id": "party_nps",
+   "group": "opposition",
+   "name": "People's Movement of Serbia (NPS)"
+  },
+  {
+   "id": "party_srce",
+   "group": "opposition",
+   "name": "Serbia Centre (SRCE)"
+  },
+  {
+   "id": "party_ds",
+   "group": "opposition",
+   "name": "Democratic Party (DS)"
+  },
+  {
+   "id": "party_kreni_promeni",
+   "group": "opposition",
+   "name": "Kreni-Promeni"
+  },
+  {
+   "id": "opposition_unspecified",
+   "group": "opposition",
+   "name": "Opposition (unspecified parties)"
+  },
+  {
+   "id": "ajs",
+   "group": "independent",
+   "name": "Archive of Public Gatherings (Arhiv javnih skupova)"
+  },
+  {
+   "id": "crta",
+   "group": "independent",
+   "name": "CRTA"
+  }
+ ],
+ "prefixes": {
+  "students:": "a named plenum, faculty or university student assembly, e.g. students:FTN Novi Sad",
+  "academic:": "a faculty, university body or rectors as an institution, e.g. academic:Faculty of Civil Engineering Belgrade",
+  "party:": "another political party (government or opposition), e.g. party:LSV",
+  "ngo:": "another civil-society organisation",
+  "foreign:": "a foreign government, agency, court or international body, e.g. foreign:FSB, foreign:ECtHR, foreign:European Commission",
+  "institution:": "another domestic public institution, e.g. institution:Emergency Centre Belgrade"
+ }
+}

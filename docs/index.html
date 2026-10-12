@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stance ledger viewer</title>
+<style>
+  :root { --bg:#fbfaf7; --fg:#1d1d1f; --muted:#6b6b70; --card:#ffffff; --line:#e4e2dc;
+          --aff:#2f6db3; --den:#b5483f; --par:#c4892a; --hed:#7a6fb0; --val:#3d7f5f; --accent:#2f6db3; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#161618; --fg:#ececee; --muted:#a0a0a8; --card:#1f1f22; --line:#33333a;
+            --aff:#6fa3e0; --den:#e07a70; --par:#e0b060; --hed:#a99be0; --val:#73c29a; --accent:#6fa3e0; }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font:15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  main { max-width:1040px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:24px; margin:0 0 4px; }
+  .sub { color:var(--muted); margin:0 0 20px; }
+  .controls { display:flex; flex-wrap:wrap; gap:12px 20px; align-items:center;
+              background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px;
+              position:sticky; top:0; z-index:2; }
+  .controls label { font-size:13px; color:var(--muted); display:flex; gap:8px; align-items:center; }
+  select, input[type=range] { font:inherit; }
+  #date { min-width:220px; }
+  #dateLabel { font-weight:600; color:var(--fg); min-width:96px; }
+  .banner { margin:14px 0; padding:10px 12px; border-radius:8px; font-size:13px;
+            border:1px solid var(--line); background:var(--card); color:var(--muted); }
+  .prop { background:var(--card); border:1px solid var(--line); border-radius:10px;
+          padding:14px 16px; margin:16px 0; }
+  .prop h2 { font-size:15px; margin:0 0 10px; }
+  .row { display:grid; grid-template-columns: minmax(150px, 230px) 1fr; gap:4px 14px;
+         padding:8px 0; border-top:1px solid var(--line); }
+  .row:first-of-type { border-top:none; }
+  .actor { font-weight:600; font-size:14px; }
+  .badge { display:inline-block; padding:1px 8px; border-radius:999px; font-size:12px; font-weight:600;
+           color:#fff; margin-right:6px; }
+  .affirms{background:var(--aff)} .denies{background:var(--den)} .partial{background:var(--par)}
+  .hedged{background:var(--hed)} .value{background:var(--val)}
+  .since, .hist { color:var(--muted); font-size:13px; }
+  .para { font-size:14px; }
+  a { color:var(--accent); }
+  .empty { color:var(--muted); font-style:italic; }
+  .mem { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:12px; }
+  .mem pre { white-space:pre-wrap; font:13px/1.45 ui-monospace, Menlo, monospace; margin:0;
+             background:var(--card); border:1px solid var(--line); border-radius:8px; padding:10px;
+             max-height:460px; overflow:auto; }
+  .mem h3 { font-size:13px; margin:0 0 6px; color:var(--muted); }
+  img { max-width:100%; border-radius:8px; border:1px solid var(--line); background:#fff; }
+  section { margin-top:32px; }
+  @media (max-width:600px) { .row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Stance ledger viewer</h1>
+  <p class="sub">Who stated what, and when, on four contested questions in Serbian news,
+    1 Nov 2024 to 30 Apr 2025. Pick a date to see every actor's stance as known then.
+    Nothing here says who was right. Every stance was extracted by a language model.</p>
+
+  <div class="controls">
+    <label>Topic <select id="topic"></select></label>
+    <label>Source <select id="source">
+      <option value="gold">Answer key</option>
+      <option value="ledger">Model-extracted ledger (unverified)</option>
+    </select></label>
+    <label>Date <input id="date" type="range" min="0" max="180" value="180"><span id="dateLabel"></span></label>
+  </div>
+  <div id="banner" class="banner"></div>
+  <div id="props"></div>
+
+  <section>
+    <h2>The agent's memory on the same date</h2>
+    <p class="sub">Three ways an agent can remember this topic, all fed the same news. Model
+      output: it contains errors by design, which is what the comparison measures. Where a memory
+      describes an outlet, those are the model's words, not this project's.</p>
+    <label class="sub">Example date <select id="memDate"></select></label>
+    <div id="mem" class="mem"></div>
+  </section>
+
+  <section>
+    <h2>How much of "who said what" survives</h2>
+    <img src="figures/survival.png" alt="Share of stances kept with their speaker, by memory type, over six months">
+  </section>
+  <p class="sub" id="foot"></p>
+</main>
+<script>
+const T0 = new Date(Date.UTC(2024, 10, 1));
+const TOPICS = {T1:"Reconstruction documentation", T2:"Students' demands",
+                T3:"The sound on 15 March", T4:"Crowd sizes"};
+let D;
+const $ = id => document.getElementById(id);
+const dayStr = n => new Date(T0.getTime() + n*864e5).toISOString().slice(0,10);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function actorName(id) {
+  const base = id.split("@")[0];
+  if (D.actors[base]) return D.actors[base] + (id.includes("@") ? " (new term)" : "");
+  if (base.includes(":")) return base.split(":").slice(1).join(":");
+  return base;
+}
+function stanceLabel(r) {
+  if (r.value && typeof r.value === "object") {
+    const lo = r.value.low, hi = r.value.high;
+    const f = x => x ? x.toLocaleString("en") : "?";
+    return lo && hi && lo !== hi ? `${f(lo)}–${f(hi)}` : f(lo || hi);
+  }
+  if (r.stance === "value" && r.value) return r.value;
+  return r.stance;
+}
+function cls(r) { return ["affirms","denies","partial","hedged"].includes(r.stance) ? r.stance : "value"; }
+
+function render() {
+  const topic = $("topic").value, src = $("source").value, day = dayStr(+$("date").value);
+  $("dateLabel").textContent = day;
+  $("banner").textContent = src === "gold"
+    ? "Answer key: each stance found in the corpus by a model, with links to the articles, dated by its first publication. It contains errors and is not exhaustive."
+    : "Model-extracted ledger: what the extraction model recorded from the same news. It contains errors.";
+  const rows = (src === "gold" ? D.gold : D.ledger).filter(r => r.date <= day);
+  const props = D.propositions.filter(p => p.topic === topic);
+  $("props").innerHTML = props.map(p => {
+    const byActor = {};
+    rows.filter(r => r.proposition === p.id).sort((a,b) => a.date < b.date ? -1 : 1)
+        .forEach(r => (byActor[r.actor] ||= []).push(r));
+    const items = Object.entries(byActor).map(([a, rs]) => {
+      const segs = [];
+      rs.forEach(r => { const last = segs[segs.length-1];
+        if (!last || stanceLabel(last) !== stanceLabel(r)) segs.push(r); });
+      const cur = segs[segs.length-1];
+      const links = (cur.evidence || [cur.url]).filter(Boolean).slice(0,3)
+        .map((u,i) => `<a href="${esc(u)}" target="_blank" rel="noopener">source ${i+1}</a>`).join(" · ");
+      const hist = segs.length > 1 ? `<div class="hist">Earlier: ${segs.slice(0,-1)
+        .map(s => `${esc(stanceLabel(s))} (${s.date})`).join("; ")}</div>` : "";
+      return `<div class="row"><div class="actor">${esc(actorName(a))}</div><div>
+        <span class="badge ${cls(cur)}">${esc(stanceLabel(cur))}</span>
+        <span class="since">since ${cur.date}</span> ${links}
+        <div class="para">${esc(cur.paraphrase)}</div>${hist}</div></div>`;
+    }).join("");
+    return `<div class="prop"><h2>${p.id}: ${esc(p.text)}</h2>${items || '<div class="empty">No stance stated yet.</div>'}</div>`;
+  }).join("");
+  renderMem();
+}
+function renderMem() {
+  const d = $("memDate").value, topic = $("topic").value;
+  const m = (D.memories[d] || {})[topic];
+  const lab = {summary_unbriefed:"Rolling summary", summary_briefed:"Rolling summary + brief", ledger:"Stance ledger"};
+  $("mem").innerHTML = m ? Object.entries(lab).map(([k, l]) =>
+    `<div><h3>${l}</h3><pre>${esc(m[k])}</pre></div>`).join("") : '<div class="empty">No example for this date.</div>';
+}
+fetch("data/viewer.json").then(r => r.json()).then(data => {
+  D = data;
+  $("topic").innerHTML = Object.entries(TOPICS).map(([k,v]) => `<option value="${k}">${v}</option>`).join("");
+  $("memDate").innerHTML = Object.keys(D.memories).map(d => `<option>${d}</option>`).join("");
+  ["topic","source","date","memDate"].forEach(id => $(id).addEventListener("input", render));
+  $("foot").innerHTML = `Data: ${esc(D.dataset.name)} v${esc(D.dataset.version)}, doi:${esc(D.dataset.doi)}. Articles are the outlets' copyright and are linked, not copied.`;
+  render();
+});
+</script>
+</body>
+</html>

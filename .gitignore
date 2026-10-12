@@ -1,0 +1,13 @@
+# Article text is the outlets' copyright: never committed
+/local/
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Full model text that may name private persons: kept local. The repo ships the summaries at
+# the example dates (docs/data/viewer.json) and a name-scrubbed copy of the answers.
+/runs/summary/
+/runs/answers/answers.json

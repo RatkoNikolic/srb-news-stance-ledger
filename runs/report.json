@@ -1,0 +1,300 @@
+{
+ "survival": {
+  "summary_unbriefed": {
+   "2024-11-15": {
+    "lost": 4,
+    "attributed": 1
+   },
+   "2024-11-29": {
+    "attributed": 2,
+    "lost": 6
+   },
+   "2024-12-13": {
+    "attributed": 8,
+    "lost": 9
+   },
+   "2024-12-27": {
+    "attributed": 10,
+    "lost": 27
+   },
+   "2025-01-10": {
+    "lost": 32,
+    "attributed": 6,
+    "misattributed": 1
+   },
+   "2025-01-24": {
+    "lost": 25,
+    "attributed": 15
+   },
+   "2025-02-07": {
+    "attributed": 10,
+    "lost": 38
+   },
+   "2025-02-21": {
+    "attributed": 6,
+    "lost": 45
+   },
+   "2025-03-07": {
+    "attributed": 12,
+    "lost": 42,
+    "misattributed": 1
+   },
+   "2025-03-21": {
+    "attributed": 38,
+    "lost": 72
+   },
+   "2025-04-04": {
+    "attributed": 33,
+    "lost": 77,
+    "stated_as_fact": 1
+   },
+   "2025-04-18": {
+    "attributed": 36,
+    "lost": 87,
+    "stated_as_fact": 2
+   },
+   "2025-05-02": {
+    "attributed": 35,
+    "lost": 99,
+    "misattributed": 1,
+    "stated_as_fact": 2
+   }
+  },
+  "ledger": {
+   "2024-11-15": {
+    "lost": 5,
+    "attributed": 0
+   },
+   "2024-11-29": {
+    "lost": 7,
+    "attributed": 1
+   },
+   "2024-12-13": {
+    "lost": 7,
+    "attributed": 10
+   },
+   "2024-12-27": {
+    "attributed": 24,
+    "lost": 13
+   },
+   "2025-01-10": {
+    "attributed": 24,
+    "lost": 15
+   },
+   "2025-01-24": {
+    "attributed": 26,
+    "lost": 14
+   },
+   "2025-02-07": {
+    "attributed": 29,
+    "lost": 19
+   },
+   "2025-02-21": {
+    "attributed": 33,
+    "lost": 18
+   },
+   "2025-03-07": {
+    "attributed": 35,
+    "lost": 20
+   },
+   "2025-03-21": {
+    "lost": 51,
+    "attributed": 59
+   },
+   "2025-04-04": {
+    "lost": 53,
+    "attributed": 58
+   },
+   "2025-04-18": {
+    "lost": 56,
+    "attributed": 69
+   },
+   "2025-05-02": {
+    "attributed": 74,
+    "lost": 63
+   }
+  },
+  "summary_briefed": {
+   "2024-11-15": {
+    "lost": 5,
+    "attributed": 0
+   },
+   "2024-11-29": {
+    "attributed": 2,
+    "lost": 6
+   },
+   "2024-12-13": {
+    "attributed": 9,
+    "lost": 8
+   },
+   "2024-12-27": {
+    "attributed": 18,
+    "lost": 19
+   },
+   "2025-01-10": {
+    "attributed": 18,
+    "lost": 21
+   },
+   "2025-01-24": {
+    "attributed": 16,
+    "lost": 24
+   },
+   "2025-02-07": {
+    "attributed": 14,
+    "lost": 34
+   },
+   "2025-02-21": {
+    "attributed": 12,
+    "lost": 36,
+    "stated_as_fact": 3
+   },
+   "2025-03-07": {
+    "attributed": 23,
+    "lost": 32
+   },
+   "2025-03-21": {
+    "attributed": 54,
+    "lost": 56
+   },
+   "2025-04-04": {
+    "attributed": 58,
+    "lost": 52,
+    "misattributed": 1
+   },
+   "2025-04-18": {
+    "attributed": 57,
+    "lost": 65,
+    "misattributed": 2,
+    "stated_as_fact": 1
+   },
+   "2025-05-02": {
+    "attributed": 60,
+    "lost": 71,
+    "misattributed": 3,
+    "stated_as_fact": 3
+   }
+  }
+ },
+ "survival_final": {
+  "summary_unbriefed": {
+   "attributed": 35,
+   "lost": 99,
+   "misattributed": 1,
+   "stated_as_fact": 2
+  },
+  "ledger": {
+   "attributed": 74,
+   "lost": 63,
+   "stated_as_fact": 0,
+   "misattributed": 0
+  },
+  "summary_briefed": {
+   "attributed": 60,
+   "lost": 71,
+   "misattributed": 3,
+   "stated_as_fact": 3
+  }
+ },
+ "scores": {
+  "summary_briefed": {
+   "recall": 0.3806571605703658,
+   "stale_per_100_positions": 2.084884586746091,
+   "ahead_of_gold_per_100_positions": 4.542069992553984,
+   "change_detection": 0.1317365269461078,
+   "unmatched_share": 0.3655994043186895,
+   "changes_reported": 95,
+   "false_changes": 47,
+   "gold_changes": 167,
+   "n_questions": 149
+  },
+  "closed_book": {
+   "recall": 0.018598884066955982,
+   "stale_per_100_positions": 0.0,
+   "ahead_of_gold_per_100_positions": 0.0,
+   "change_detection": 0.0,
+   "unmatched_share": 0.3125,
+   "changes_reported": 0,
+   "false_changes": 0,
+   "gold_changes": 167,
+   "n_questions": 149
+  },
+  "ledger": {
+   "recall": 0.40917544947303164,
+   "stale_per_100_positions": 2.5821596244131455,
+   "ahead_of_gold_per_100_positions": 7.922535211267606,
+   "change_detection": 0.2275449101796407,
+   "unmatched_share": 0.3873239436619718,
+   "changes_reported": 604,
+   "false_changes": 284,
+   "gold_changes": 167,
+   "n_questions": 149
+  },
+  "summary_unbriefed": {
+   "recall": 0.24736515809051457,
+   "stale_per_100_positions": 0.7650273224043715,
+   "ahead_of_gold_per_100_positions": 4.371584699453552,
+   "change_detection": 0.03592814371257485,
+   "unmatched_share": 0.38579234972677595,
+   "changes_reported": 37,
+   "false_changes": 23,
+   "gold_changes": 167,
+   "n_questions": 149
+  },
+  "rag": {
+   "recall": 0.15623062616243025,
+   "stale_per_100_positions": 3.7773359840954273,
+   "ahead_of_gold_per_100_positions": 2.982107355864811,
+   "change_detection": 0.0658682634730539,
+   "unmatched_share": 0.3081510934393638,
+   "changes_reported": 15,
+   "false_changes": 3,
+   "gold_changes": 167,
+   "n_questions": 149
+  },
+  "ledger_corroborated": {
+   "recall": 0.41661500309981403,
+   "stale_per_100_positions": 0.9362200117027502,
+   "ahead_of_gold_per_100_positions": 7.314218841427736,
+   "change_detection": 0.40718562874251496,
+   "unmatched_share": 0.38970157987126974,
+   "changes_reported": 387,
+   "false_changes": 203,
+   "gold_changes": 167,
+   "n_questions": 149
+  }
+ },
+ "costs": {
+  "answer": 3.492,
+  "extract": 3.509,
+  "filter": 0.182,
+  "judge_fact": 0.787,
+  "judge_survival": 2.537,
+  "pilot_extract": 0.106,
+  "pilot_filter": 0.002,
+  "summary_briefed": 7.374,
+  "summary_unbriefed": 7.412
+ },
+ "stated_as_fact": {
+  "ledger": {
+   "attributed_only": 105
+  },
+  "closed_book": {
+   "attributed_only": 105
+  },
+  "ledger_corroborated": {
+   "attributed_only": 105
+  },
+  "summary_unbriefed": {
+   "attributed_only": 95,
+   "denies_as_fact": 7,
+   "affirms_as_fact": 3
+  },
+  "rag": {
+   "attributed_only": 105
+  },
+  "summary_briefed": {
+   "attributed_only": 104,
+   "denies_as_fact": 1
+  }
+ }
+}
