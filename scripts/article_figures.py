@@ -119,10 +119,23 @@ LABEL = {  # figures the speaker relayed or cited rather than produced
 NARROW_DENIAL = {"T3-28", "T3-29", "T3-30", "T3-31"}  # denied only for itself or for named models
 
 
+# Statements found in the corpus after the answer key was frozen. They are drawn on the charts but
+# are not in data/gold, so every benchmark number stays computed on the published key.
+CHART_EXTRA = [
+    {"gid": "X-01", "proposition": "P6", "actor": "ministry_interior", "stance": "denies",
+     "first_published_at": "2025-03-18T09:31:59Z",
+     "evidence": ["https://www.pink.rs/politika/677964/dacic-srbija-nema-zvucni-top-samo-jaci-megafon-a-ni-to-ne-koristi",
+                  "https://www.danas.rs/vesti/drustvo/ima-topa-nema-topa-u-magacinu-je-ustvari-pored-skupstine-dacic-danima-ne-moze-da-se-dogovori-sam-sa-sobom/"],
+     "paraphrase_en": "On TV Prva the minister said Serbia and its police have no sound cannon, only a "
+                      "sound amplifier like a stronger megaphone, and that even that is not used."},
+]
+
+
 def chart_gold() -> list[dict]:
-    """The answer key, with narrow denials drawn as their own marker."""
+    """The answer key plus CHART_EXTRA, with narrow denials drawn as their own marker."""
+    extra = [{**g, "t": datetime.fromisoformat(g["first_published_at"])} for g in CHART_EXTRA]
     return [{**g, "stance": "denies_narrow"} if g["gid"] in NARROW_DENIAL and g["stance"] == "denies"
-            else g for g in gold()]
+            else g for g in gold() + extra]
 
 
 def row_label(actor: str, recs: list[dict]) -> str:
@@ -253,14 +266,24 @@ def timeline_svg(pid: str, start: datetime, end: datetime, width: int, max_actor
         pts = rows[actor]
         p.append(f'<text x="{left-24}" y="{y+6:.1f}" font-size="{fs}" fill="{T["ink"]}" text-anchor="end">{escape(row_label(actor, rows[actor]))}</text>')
         p.append(f'<line x1="{x(pts[0]["t"]):.1f}" x2="{right}" y1="{y:.1f}" y2="{y:.1f}" stroke="{T["rule"]}" stroke-width="2"/>')
-        prev_x, below = -1e9, False
+        # points reported on the same day share one date label, centred under or over them
+        groups: list[list[dict]] = []
         for g in pts:
-            gx = x(g["t"])
-            below = (not below) if gx - prev_x < 74 else False
-            prev_x = gx
-            p.append(shape(g["stance"], gx, y, 9))
+            if groups and groups[-1][-1]["t"].date() == g["t"].date():
+                groups[-1].append(g)
+            else:
+                groups.append([g])
+        prev_x, below = -1e9, False
+        for grp in groups:
+            xs = [x(g["t"]) for g in grp]
+            for g, gx in zip(grp, xs):
+                p.append(shape(g["stance"], gx, y, 9))
+            lx = sum(xs) / len(xs)
+            below = (not below) if xs[0] - prev_x < 74 else False
+            prev_x = xs[-1]
             ty = y + 30 if below else y - 16
-            p.append(f'<text x="{gx:.1f}" y="{ty:.1f}" font-size="{fs-4}" fill="{T["muted"]}" text-anchor="middle">{g["t"].day} {g["t"]:%b}</text>')
+            t0 = grp[0]["t"]
+            p.append(f'<text x="{lx:.1f}" y="{ty:.1f}" font-size="{fs-4}" fill="{T["muted"]}" text-anchor="middle">{t0.day} {t0:%b}</text>')
     p.append("</svg>")
     return "".join(p)
 
@@ -276,8 +299,11 @@ def sound_html() -> str:
             + '<p class="src">Narrow denials: the Army and BIA spoke only for themselves; the '
               'Interior Ministry first denied only named models (Vortex, LRAD-1000Xi); the President '
               'first said only that the Army had no such device and no state body a "Vortex". The '
-              'ministry later said its LRAD units were for warnings and were not used on 15 March. '
-              'Source: stance-ledger answer key.</p>')
+              'next morning the interior minister said Serbia has no sound cannon at all, only a '
+              '"stronger megaphone"; by 19 March he showed the ministry\'s LRAD units, which he said '
+              'were for warnings and were not used on 15 March. Source: stance-ledger answer key, plus '
+              'the minister\'s 18 March statement (Pink, Danas), found in the corpus after the key was '
+              'frozen.</p>')
     return page(body)
 
 
